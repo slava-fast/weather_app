@@ -8,6 +8,6 @@ export default function WeatherCardGrid({ locations } : { locations: Location[] 
     </div>
 
   return <div className="grid grid-cols-3 gap-8">
-    {locations.map(location => <WeatherCard location={location} />)}
+    {locations.map(location => <WeatherCard key={location.id} location={location} />)}
   </div>
 }

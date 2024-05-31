@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { Location } from '@/types/types';
 import pinIcon from '@/assets/pin_icon.png';
+import mapLocator from '@/assets/map-locator.png';
 import sunIcon from '@/assets/sun.png';
-import rainIcon from '@/assets/rain.png';
 
 export default function WeatherCard({ location }: { location: Location }) {
   return <div
@@ -23,12 +23,18 @@ export default function WeatherCard({ location }: { location: Location }) {
         mb-6
       "
     >
-      <h3 className="text-[28px]">{location.name}</h3>
-      <div>
-        <Image src={pinIcon.src} alt="Show on map icon" width={30} height={30} />
+      <h3 className="text-3xl">{location.name}</h3>
+      <div className="flex">
+        <a href={`https://www.google.com/maps/@${location.lat},${location.lon},13z`} target="_blank" rel="noopener noreferrer">
+          <Image src={pinIcon.src} alt="Show on map icon" width={44} height={44} />
+        </a>
+        <a href={`https://www.google.com/maps/dir/47.91484738084041,11.428862702514923/${location.lat},${location.lon}`} target="_blank" rel="noopener noreferrer">
+          <Image src={mapLocator.src} alt="Show on map icon" width={44} height={44} />
+        </a>
       </div>
     </div>
-    {location.weather.map(({date, day, night}) => <div
+    {(location.weather || []).map(({date, day, night}) => <div
+      key={date}
       className="
         flex
         justify-between
@@ -42,9 +48,9 @@ export default function WeatherCard({ location }: { location: Location }) {
       "
     >
       <span>{date}</span>
-      <div className="flex items-center">
-        <span className="text-3xl mr-2">
-          <span className="text-sm text-font-light-color relative top-[-1px]">{night}</span> {day}
+      <div className="flex">
+        <span className="text-3xl mr-4">
+          <span className="text-sm text-font-light-color">{night}</span> {day}
         </span>
         <span>
           <Image src={sunIcon.src} alt="Show on map icon" width={44} height={44} />
