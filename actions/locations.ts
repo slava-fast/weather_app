@@ -3,6 +3,7 @@
 import { storeLocation, deleteLocation as deleteLocationFromDB } from '@/libs/locations';
 import { ParsedGoogleLocation } from '@/types/types';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 const FORM_ERRORS = {
   name: 'Please provide a location name',
@@ -27,6 +28,10 @@ export async function addLocation(prevState, formData) {
   //@ts-ignore
   storeLocation(name, parsedLocation.lat, parsedLocation.lon)
   revalidatePath('/')
+
+  return {
+    success: true,
+  }
 }
 
 export async function deleteLocation(locationId: string) {

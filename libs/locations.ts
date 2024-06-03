@@ -34,7 +34,7 @@ export async function getWeather(locations: Location[]): Promise<WeatherApiRespo
   //     return Promise.all(parsedResponses)
   //   })
 
-  return Promise.resolve([weatherApiResponse, weatherApiResponse, weatherApiResponse, weatherApiResponse, weatherApiResponse])
+  return Promise.resolve([weatherApiResponse, weatherApiResponse, weatherApiResponse, weatherApiResponse, weatherApiResponse, weatherApiResponse])
 }
 
 export function enrichLocationsWithWeather(locations: Location[], weather: WeatherApiResponse[]): Location[] {

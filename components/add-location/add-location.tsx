@@ -30,7 +30,7 @@ export default function AddLocation() {
         className="fixed bg-font-color/60 backdrop-blur-sm left-0 top-0 right-0 bottom-0 z-9"
         onClick={toggleIsAddLocationOpen}
       />
-      <AddLocationForm onCancel={toggleIsAddLocationOpen} />
+      <AddLocationForm onCancel={toggleIsAddLocationOpen} onSuccess={toggleIsAddLocationOpen} />
     </>}
   </div>
 }

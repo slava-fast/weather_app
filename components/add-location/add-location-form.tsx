@@ -1,8 +1,12 @@
 import { useFormState } from 'react-dom';
 import { addLocation } from '@/actions/locations';
 
-export default function AddLocationForm({ onCancel }: { onCancel: () => void }) {
+export default function AddLocationForm({ onCancel, onSuccess }: { onCancel: () => void; onSuccess: () => void }) {
   const [formState, formAction] = useFormState(addLocation, {})
+
+  if (formState.success) {
+    onCancel()
+  }
 
   return <div
     className="
@@ -30,7 +34,7 @@ export default function AddLocationForm({ onCancel }: { onCancel: () => void }) 
       <input
         className="w-full border border-font-color p-1 px-4 mb-2 rounded-md"
         type="text"
-        placeholder="Google coordinates"
+        placeholder="Google Maps link"
         name="googleLink"
       />
       <button
