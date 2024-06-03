@@ -3,7 +3,7 @@ export interface Location {
   name: string;
   lat: number;
   lon: number;
-  weather: Weather[]
+  weather?: Weather[]
 }
 
 export interface Weather {
@@ -41,4 +41,10 @@ interface WeatherApiDailyValue {
   temperatureMax: number;
   temperatureMin: number;
   temperatureAvg: number;
+}
+
+export interface ParsedGoogleLocation {
+  lat: string;
+  lon: string;
+  zoom: string;
 }

@@ -14,6 +14,9 @@ const config: Config = {
         'background': '#F1F1F1',
         'border-color': '#CCD4D9',
       },
+      fontSize: {
+        small: '1rem'
+      }
     },
   },
   plugins: [],

@@ -1,8 +1,22 @@
-import { FormEvent } from 'react';
+'use client'
 
-export default function Search({ onSearchChange }: { onSearchChange: (search: string) => void }) {
+import { FormEvent } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+export default function Search() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
   const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
-    onSearchChange(e.currentTarget.value)
+    const params = new URLSearchParams(searchParams)
+
+    if (e.currentTarget.value) {
+      params.set('searchName', e.currentTarget.value);
+    } else {
+      params.delete('searchName');
+    }
+    replace(`${pathname}?${params.toString()}`);
   }
 
   return <input
@@ -10,5 +24,6 @@ export default function Search({ onSearchChange }: { onSearchChange: (search: st
     type="text"
     placeholder="Search your locations..."
     onChange={handleInputChange}
+    defaultValue={searchParams.get('searchName')?.toString()}
   />
 }
