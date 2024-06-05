@@ -1,4 +1,4 @@
-import { Weather, WeatherApiDaily, WeatherApiResponse } from '@/types/types';
+import { Weather, WeatherApiDaily, WeatherApiResponse, WeatherIcon } from '@/types/types';
 
 const INVALID_DATE = 'Invalid Date'
 
@@ -24,7 +24,8 @@ const transformApiDayPayload = (weatherDaily: WeatherApiDaily, day: string): Wea
   return ({
     date: formatDate(weatherDaily.time) + ` ${day}`,
     day: formatTemperature(weatherDaily.values.temperatureMax),
-    night: formatTemperature(weatherDaily.values.temperatureMin)
+    night: formatTemperature(weatherDaily.values.temperatureMin),
+    weatherCode: weatherDaily.values.weatherCodeMax,
   })
 }
 

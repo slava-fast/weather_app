@@ -10,6 +10,12 @@ export interface Weather {
   date: string;
   day: string;
   night: string;
+  weatherCode?: number;
+}
+
+export interface WeatherIcon {
+  name: string;
+  title: string;
 }
 
 export interface WeatherApiResponse {
@@ -41,6 +47,7 @@ interface WeatherApiDailyValue {
   temperatureMax: number;
   temperatureMin: number;
   temperatureAvg: number;
+  weatherCodeMax: number;
 }
 
 export interface ParsedGoogleLocation {

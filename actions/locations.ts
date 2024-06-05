@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 
 const FORM_ERRORS = {
   name: 'Please provide a location name',
-  googleLink: 'Please provide a correct google link',
+  location: 'Please provide a location either via google maps link or via latitude and longitude',
 }
 
 const PARSE_GOOGLE_LINK_REGEX = /(?<=\/@)(.*?)(?=z)/
@@ -15,18 +15,24 @@ const PARSE_GOOGLE_LINK_REGEX = /(?<=\/@)(.*?)(?=z)/
 export async function addLocation(prevState, formData) {
   const name = formData.get('name')
   const googleLink = formData.get('googleLink')
+  const lat = formData.get('lat')
+  const lon = formData.get('lon')
 
   const errors: string[] = []
 
   const parsedLocation = parseGoogleLink(googleLink)
 
   if (!name?.length) errors.push(FORM_ERRORS.name)
-  if (!googleLink?.length || !parsedLocation) errors.push(FORM_ERRORS.googleLink)
+  if ((!lat || !lon) && (!googleLink?.length || !parsedLocation)) errors.push(FORM_ERRORS.location)
 
   if (errors.length) return { errors }
 
-  //@ts-ignore
-  storeLocation(name, parsedLocation.lat, parsedLocation.lon)
+  if (lat && lon) {
+    storeLocation(name, lat, lon)
+  } else if (parsedLocation?.lat && parsedLocation?.lon) {
+    storeLocation(name, parsedLocation.lat, parsedLocation.lon)
+  }
+
   revalidatePath('/')
 
   return {
